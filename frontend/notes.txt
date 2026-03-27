@@ -1,0 +1,71 @@
+================ FRONTEND STACK NOTES ================
+
+🎨 STYLING
+- tailwindcss → Utility-first CSS framework (fast UI styling)
+- @tailwindcss/vite → Tailwind integration with Vite
+
+-----------------------------------------------------
+
+🧠 STATE MANAGEMENT
+- zustand → Lightweight global state manager (auth, UI state)
+  → Simpler than Redux, minimal boilerplate
+
+-----------------------------------------------------
+
+🧾 FORMS & VALIDATION
+- react-hook-form → Efficient form handling (less re-renders)
+- zod → Schema validation (type-safe input validation)
+- @hookform/resolvers → Connects Zod with react-hook-form
+
+-----------------------------------------------------
+
+🌐 API & SERVER DATA
+- axios → HTTP client for API requests (GET, POST, etc.)
+- @tanstack/react-query → Data fetching + caching + auto refetch (better than useEffect)
+
+
+-----------------------------------------------------
+
+🔔 UI FEEDBACK
+- sonner → Toast notifications (success, error alerts)
+
+-----------------------------------------------------
+
+🔌 REAL-TIME
+- socket.io-client → WebSocket client (chat, live updates)
+
+-----------------------------------------------------
+
+🧭 ROUTING
+- react-router → Client-side routing (SPA navigation)
+
+-----------------------------------------------------
+
+🎯 ICONS
+- lucide-react → Modern lightweight icon library
+
+-----------------------------------------------------
+
+⚡ COMMON USE CASES
+- Login Form → react-hook-form + zod
+- API Calls → axios
+- Data Fetching → react-query
+- Auth State → zustand
+- Notifications → sonner
+- Routing → react-router
+- Real-time → socket.io-client
+
+-----------------------------------------------------
+
+🧠 INTERVIEW POINTS
+- React Query → Handles caching, loading, refetching automatically
+- Zustand → Simple global state (no boilerplate like Redux)
+- Zod → Type-safe validation
+- Tailwind → Fast UI without writing CSS
+
+-----------------------------------------------------
+
+🚀 SUMMARY
+- Modern production-ready frontend stack
+- Covers UI + State + Forms + API + Real-time
+=====================================================
