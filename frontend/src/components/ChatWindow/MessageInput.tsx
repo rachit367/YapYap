@@ -10,7 +10,7 @@ const MessageInput: React.FC = () => {
     const { selectedConversation, addMessage } = useChatStore();
     const { socket } = useSocket();
     const { user } = useAuthStore();
-    const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+    const typingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     const handleTyping = (e: React.ChangeEvent<HTMLInputElement>) => {
         setContent(e.target.value);
