@@ -25,15 +25,9 @@ async function register(req, res, next) {
       });
     }
 
-    res.cookie("token", result.token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "Strict" : "Lax",
-      path: "/"
-    });
-
     return res.status(201).json({
       success: true,
+      message: "User registered successfully",
       user: {
         id: result._id,
         username: result.username,
@@ -91,19 +85,19 @@ async function login(req, res, next) {
   }
 }
 
-async function getUserProfile(req, res, next){
+async function getUserProfile(req, res, next) {
   try {
-    const userId=req.user_id
-    const data=await handleGetUserProfile(userId)
-    if(data.error==='INVALID USER'){
+    const userId = req.user_id
+    const data = await handleGetUserProfile(userId)
+    if (data.error === 'INVALID USER') {
       return res.status(401).json({
         success: false,
         message: "Unauthorized"
       })
     }
     return res.status(200).json({
-      success:true,
-      user:data
+      success: true,
+      user: data
     });
 
   } catch (err) {
@@ -111,17 +105,17 @@ async function getUserProfile(req, res, next){
   }
 };
 
-async function logout(req, res, next){
+async function logout(req, res, next) {
   try {
-    res.clearCookie('token',{
-      secure:process.env.NODE_ENV === "production",
-      httpOnly:true,
-      sameSite:'Strict',
-      path:'/'
+    res.clearCookie('token', {
+      secure: process.env.NODE_ENV === "production",
+      httpOnly: true,
+      sameSite: 'Strict',
+      path: '/'
     })
     return res.status(200).json({
-      success:true,
-      message:'User Logged out'
+      success: true,
+      message: 'User Logged out'
     });
 
   } catch (err) {

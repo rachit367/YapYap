@@ -5,8 +5,6 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { authService } from "../../../services/authService"
 import { toast } from "sonner"
-import { useNavigate } from "react-router"
-import { useAuthStore } from "../../../stores/authStore"
 import { Loader2, Lock, Mail, User } from "lucide-react"
 
 interface RegisterFormProps {
@@ -31,8 +29,6 @@ const registerSchema = z.object({
 type RegisterFormData = z.infer<typeof registerSchema>
 
 const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitch }) => {
-    const navigate = useNavigate();
-    const { setUser } = useAuthStore();
 
     const {
         register, handleSubmit, formState: { errors }
@@ -40,16 +36,11 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitch }) => {
         resolver: zodResolver(registerSchema)
     })
 
-    const queryClient = useQueryClient();
-
     const mutation = useMutation({
         mutationFn: authService.register,
-        onSuccess: (data) => {
-            const { user } = data;
-            setUser(user);
-            queryClient.setQueryData(['auth'], { success: true, user });
-            toast.success("Account created! Welcome to YapYap!")
-            navigate('/');
+        onSuccess: () => {
+            toast.success("Account created! Please sign in.")
+            onSwitch();
         },
         onError: (error: any) => {
             const msg = error?.response?.data?.message || "Registration failed"
