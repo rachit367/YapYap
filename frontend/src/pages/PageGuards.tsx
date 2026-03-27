@@ -6,7 +6,7 @@ import SplashScreen from "../components/common/SplashScreen";
 
 export function PrivateRoute() {
     const { user: storedUser, setUser, logout } = useAuthStore();
-    const {data: user, isLoading, isError} = useAuth(storedUser || undefined);
+    const {data: user, isLoading, isError} = useAuth(storedUser ? { success: true, user: storedUser } : undefined);
 
     useEffect(() => {
         if (user?.user) {
@@ -25,7 +25,7 @@ export function PrivateRoute() {
 
 export function GuestRoute() {
     const { user: storedUser } = useAuthStore();
-    const {data: user, isLoading, isError} = useAuth(storedUser || undefined);
+    const {data: user, isLoading, isError} = useAuth(storedUser ? { success: true, user: storedUser } : undefined);
 
     if (isLoading && !storedUser) return <SplashScreen />
 
