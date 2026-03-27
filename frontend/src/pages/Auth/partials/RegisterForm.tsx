@@ -2,7 +2,7 @@ import { z } from "zod"
 
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { authService } from "../../../services/authService"
 import { toast } from "sonner"
 import { useNavigate } from "react-router"
@@ -40,11 +40,14 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitch }) => {
         resolver: zodResolver(registerSchema)
     })
 
+    const queryClient = useQueryClient();
+
     const mutation = useMutation({
         mutationFn: authService.register,
         onSuccess: (data) => {
             const { user } = data;
             setUser(user);
+            queryClient.setQueryData(['auth'], { success: true, user });
             toast.success("Account created! Welcome to YapYap!")
             navigate('/');
         },
