@@ -7,9 +7,17 @@ let io
 function initSocket(httpServer) {
     io = new Server(httpServer, {
         cors: {
-            origin: process.env.FRONTEND_URI,
+            origin: (origin, callback) => {
+                const allowed = (process.env.FRONTEND_URI || '').replace(/\/+$/, '')
+                if (!origin || origin.replace(/\/+$/, '') === allowed) {
+                    callback(null, true)
+                } else {
+                    callback(new Error(`CORS: origin '${origin}' not allowed`))
+                }
+            },
             credentials: true
-        }
+        },
+        transports: ['websocket', 'polling']
     })
 
     io.use((socket, next) => {

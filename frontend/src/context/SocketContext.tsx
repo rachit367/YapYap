@@ -22,7 +22,8 @@ export const SocketContextProvider = ({ children }: { children: React.ReactNode 
     useEffect(() => {
         if (isAuthenticated) {
             const socketInstance = io(import.meta.env.VITE_SOCKET_URL || 'http://localhost:3000', {
-                withCredentials: true
+                withCredentials: true,
+                transports: ['websocket', 'polling']
             });
 
             setSocket(socketInstance);

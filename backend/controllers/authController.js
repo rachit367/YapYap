@@ -35,6 +35,7 @@ async function register(req, res, next) {
     return res.status(201).json({
       success: true,
       user: {
+        id: result._id,
         username: result.username,
         fullName: result.fullName,
         email: result.email,
@@ -77,6 +78,7 @@ async function login(req, res, next) {
     return res.status(200).json({
       success: true,
       user: {
+        id: result._id,
         username: result.username,
         fullName: result.fullName,
         email: result.email,

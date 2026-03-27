@@ -26,6 +26,7 @@ async function handleRegister(username, fullName, password, email) {
   const token = await generateToken(user.username, user.connectCode, user.email,user._id);
 
   return {
+    _id: user._id,
     token,
     connectCode: user.connectCode,
     username: user.username,
@@ -55,6 +56,7 @@ async function handleLogin(identifier, password) {
   const token = await generateToken(user.username, user.connectCode, user.email,user._id);
 
   return {
+    _id: user._id,
     token,
     connectCode: user.connectCode,
     username: user.username,
