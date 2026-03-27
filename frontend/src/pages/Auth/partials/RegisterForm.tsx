@@ -2,7 +2,7 @@ import { z } from "zod"
 
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { useMutation } from "@tanstack/react-query"
 import { authService } from "../../../services/authService"
 import { toast } from "sonner"
 import { Loader2, Lock, Mail, User } from "lucide-react"
