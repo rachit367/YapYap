@@ -1,3 +1,4 @@
+import React from 'react'
 import { useNavigate } from "react-router"
 import { z } from "zod"
 import { useAuthStore } from "../../../stores/authStore"
@@ -35,7 +36,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSwitch }) => {
             const { user } =  data;
             setUser(user);
             queryClient.setQueryData(['auth'], { success: true, user });
-            toast.success("Login successfull!")
+            toast.success("Login successful!")
             return navigate('/');
         },
         onError: (error: any) => {

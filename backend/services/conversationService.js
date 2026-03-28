@@ -21,6 +21,7 @@ async function handleCreateConversation(userOneId, userTwoId) {
     })
 
     if (existingConversation) {
+        await existingConversation.populate('participants', 'username fullName connectCode')
         return { conversation: existingConversation }
     }
 
@@ -37,6 +38,7 @@ async function handleCreateConversation(userOneId, userTwoId) {
         participants: [userOneId, userTwoId]
     })
 
+    await newConversation.populate('participants', 'username fullName connectCode')
     return { conversation: newConversation }
 }
 

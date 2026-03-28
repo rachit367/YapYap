@@ -29,9 +29,12 @@ export const SocketContextProvider = ({ children }: { children: React.ReactNode 
             setSocket(socketInstance);
 
             socketInstance.on('receive_message', (message) => {
-                addMessage(message);
+                const { conversations, selectedConversation, updateConversationLastMessage, setConversations } = useChatStore.getState();
 
-                const { conversations, updateConversationLastMessage, setConversations } = useChatStore.getState();
+                if (selectedConversation && message.conversationId === selectedConversation._id) {
+                    addMessage(message);
+                }
+
                 const conversationExists = conversations.find(c => c._id === message.conversationId);
 
                 if (conversationExists) {

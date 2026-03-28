@@ -27,7 +27,7 @@ async function handleSendMessage(conversationId, senderId, content) {
         const receiverSocketId = await getReceiverSocketId(receiverId.toString())
         if (receiverSocketId) {
             const io = getIo()
-            io.to(receiverSocketId).emit('receive_message', newMessage)
+            io.to(receiverSocketId).emit('receive_message', newMessage.toObject())
         }
     }
 

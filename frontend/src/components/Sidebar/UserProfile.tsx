@@ -1,3 +1,4 @@
+import React from 'react'
 import { LogOutIcon } from "lucide-react"
 import { useAuthStore } from "../../stores/authStore";
 import { useQueryClient } from "@tanstack/react-query";

@@ -1,9 +1,11 @@
+import React from 'react'
 import { z } from "zod"
-
+import { useNavigate } from "react-router"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { authService } from "../../../services/authService"
+import { useAuthStore } from "../../../stores/authStore"
 import { toast } from "sonner"
 import { Loader2, Lock, Mail, User } from "lucide-react"
 
@@ -29,6 +31,9 @@ const registerSchema = z.object({
 type RegisterFormData = z.infer<typeof registerSchema>
 
 const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitch }) => {
+    const navigate = useNavigate()
+    const { setUser } = useAuthStore()
+    const queryClient = useQueryClient()
 
     const {
         register, handleSubmit, formState: { errors }
@@ -38,9 +43,12 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitch }) => {
 
     const mutation = useMutation({
         mutationFn: authService.register,
-        onSuccess: () => {
-            toast.success("Account created! Please sign in.")
-            onSwitch();
+        onSuccess: (data) => {
+            const { user } = data
+            setUser(user)
+            queryClient.setQueryData(['auth'], { success: true, user })
+            toast.success("Account created!")
+            navigate('/')
         },
         onError: (error: any) => {
             const msg = error?.response?.data?.message || "Registration failed"

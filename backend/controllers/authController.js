@@ -25,9 +25,15 @@ async function register(req, res, next) {
       });
     }
 
+    res.cookie("token", result.token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+      path: "/"
+    });
+
     return res.status(201).json({
       success: true,
-      message: "User registered successfully",
       user: {
         id: result._id,
         username: result.username,
@@ -65,7 +71,7 @@ async function login(req, res, next) {
     res.cookie("token", result.token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "Strict" : "Lax",
+      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
       path: "/"
     });
 
@@ -110,7 +116,7 @@ async function logout(req, res, next) {
     res.clearCookie('token', {
       secure: process.env.NODE_ENV === "production",
       httpOnly: true,
-      sameSite: 'Strict',
+      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
       path: '/'
     })
     return res.status(200).json({
